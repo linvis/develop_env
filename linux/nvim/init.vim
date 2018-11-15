@@ -22,11 +22,18 @@ Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " async grammar check
 Plug 'neomake/neomake'
+Plug 'tczengming/autoload_cscope.vim'
+
+Plug 'altercation/vim-colors-solarized'
 call plug#end()
 
 " Colorscheme
 colorscheme molokai
 let g:rehash256 = 1
+" set background=dark
+" colorscheme solarized
+" let g:solarized_termcolors=256
+
 
 " airline timeout between switch insert and normal mode
 set ttimeout 
@@ -84,12 +91,9 @@ nnoremap <leader>q :q<CR>
 
 " cscope
 nnoremap <F3> :cs find g <C-R>=expand("<cword>")<cr><cr>
-nnoremap <F4> :cs find t <C-R>=expand("<cword>")<cr><cr>
+nnoremap <F7> :cs find t <C-R>=expand("<cword>")<cr><cr>
 nnoremap <F5> :cs find c <C-R>=expand("<cword>")<cr><cr>
 nnoremap <F6> :cs find f <C-R>=expand("<cfile>")<cr><cr>
-
-" quick to see commit history of code modified
-vmap bl :<C-U>!svn blame <C-R>=expand("%p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p<CR>
 
 " hide line number
 function! HideNumber()
@@ -200,4 +204,5 @@ let g:Lf_NormalMap = {
 
 " Use deoplete.
 let g:deoplete#enable_at_startup = 1
-
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
