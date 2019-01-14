@@ -113,19 +113,9 @@ autocmd BufNewFile *.c,*.cpp,*.sh,*.py,*.java exec ":call SetTitle()"
 func SetTitle()
         "如果文件类型为.c或者.cpp文件
         if (&filetype == 'c' || &filetype == 'cpp')
-                call setline(1, "/***************************************************")  
-                call setline(2, "\* Module name: ".expand("%"))  
-                call setline(3, "\* Copyright 2015 - 2018, xxx Company as an unpublished work.")  
-                call setline(4, "\*")  
-                call setline(5, "\* All Rights Reserved.")  
-                call setline(6, "\*")  
-                call setline(7, "\* The information contained herein is confidential" )  
-                call setline(8, "\* property of xxx Company. The user, copying, transfer or" )  
-                call setline(9, "\* disclosure of such information is prohibited except" )  
-                call setline(10, "\* by express written agreement with xxx Company." )  
-                call setline(11, "\*" )  
-                call setline(12, "\* Module Description:" )  
-                call setline(13, "***************************************************/")  
+                call setline(1, "/*")  
+                call setline(2, "\ * File name: ".expand("%"))  
+                call setline(3, " */")  
         endif
         "如果文件类型为.sh文件
         if &filetype == 'shell'  
