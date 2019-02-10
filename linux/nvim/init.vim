@@ -25,6 +25,12 @@ Plug 'neomake/neomake'
 Plug 'tczengming/autoload_cscope.vim'
 
 Plug 'altercation/vim-colors-solarized'
+
+" auto tags generator
+Plug 'ludovicchabant/vim-gutentags'
+
+" code statistic
+Plug 'wakatime/vim-wakatime'
 call plug#end()
 
 " Colorscheme
@@ -90,10 +96,19 @@ nnoremap <leader>w :w<CR>
 nnoremap <leader>q :q<CR>
 
 " cscope
-nnoremap <F3> :cs find g <C-R>=expand("<cword>")<cr><cr>
-nnoremap <F7> :cs find t <C-R>=expand("<cword>")<cr><cr>
-nnoremap <F5> :cs find c <C-R>=expand("<cword>")<cr><cr>
-nnoremap <F6> :cs find f <C-R>=expand("<cfile>")<cr><cr>
+" nnoremap <F3> :cs find g <C-R>=expand("<cword>")<cr><cr>
+" nnoremap <F7> :cs find t <C-R>=expand("<cword>")<cr><cr>
+" nnoremap <F5> :cs find c <C-R>=expand("<cword>")<cr><cr>
+" nnoremap <F6> :cs find f <C-R>=expand("<cfile>")<cr><cr>
+
+nnoremap <C-g>c :cs find c <C-R>=expand("<cword>")<cr><cr>
+nnoremap <C-g>d :cs find d <C-R>=expand("<cword>")<cr><cr>
+nnoremap <C-g>e :cs find e <C-R>=expand("<cword>")<cr><cr>
+nnoremap <C-g>f :cs find f <C-R>=expand("<cfile>")<cr><cr>
+nnoremap <C-g>g :cs find g <C-R>=expand("<cword>")<cr><cr>
+nnoremap <C-g>i :cs find i <C-R>=expand("<cfile>")<cr><cr>
+nnoremap <C-g>s :cs find s <C-R>=expand("<cword>")<cr><cr>
+nnoremap <C-g>t :cs find t <C-R>=expand("<cword>")<cr><cr>
 
 " hide line number
 function! HideNumber()
@@ -199,3 +214,28 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " enable +y to copy to system clipboard
 set clipboard+=unnamedplus
+
+" gtags
+set cscopeprg=gtags-cscope
+let $GTAGSLABEL = 'native-pygments'
+let $GTAGSCONF = '/Users/shlin/.config/nvim/.globalrc'
+
+" auto gtags generator
+" gutentags 搜索工程目录的标志，当前文件路径向上递归直到碰到这些文件/目录名
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+
+" 所生成的数据文件的名称
+let g:gutentags_ctags_tagfile = '.tags'
+
+" 同时开启 ctags 和 gtags 支持：
+let g:gutentags_modules = []
+if executable('ctags')
+	let g:gutentags_modules += ['ctags']
+endif
+if executable('gtags-cscope') && executable('gtags')
+	let g:gutentags_modules += ['gtags_cscope']
+endif
+
+" 将自动生成的 ctags/gtags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
+let g:gutentags_cache_dir = expand('~/.cache/tags')
+
