@@ -9,7 +9,7 @@ else
 fi
 
 cd .config_tmp
-sudo apt install curl
+# sudo apt install curl
 wget https://github.com/neovim/neovim/archive/v0.3.1.tar.gz
 ret=$?
 if [ $ret == 0 ]
