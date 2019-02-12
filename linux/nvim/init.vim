@@ -126,48 +126,40 @@ nnoremap <F2> :call HideNumber()<CR>
 autocmd BufNewFile *.c,*.cpp,*.sh,*.py,*.java exec ":call SetTitle()"                                                                                       
 "定义函数SetTitle，自动插入文件头
 func SetTitle()
-        "如果文件类型为.c或者.cpp文件
-        if (&filetype == 'c' || &filetype == 'cpp')
-                call setline(1, "/*")  
-                call setline(2, "\ * File name: ".expand("%"))  
-                call setline(3, " */")  
-        endif
-        "如果文件类型为.sh文件
-        if &filetype == 'shell'  
-                call setline(1, "\#!/bin/sh")
-                call setline(2, "\# Author: yourname")
-                call setline(3, "\# Created Time : ".strftime("%c"))
-                call setline(4, "\# File Name: ".expand("%"))
-                call setline(5, "\# Description:")
-                call setline(6,"")
-        endif
-        "如果文件类型为.py文件
-        if &filetype == 'python'
-                call setline(1, "\#!/usr/bin/env python")
-                call setline(2, "\# -*- coding=utf8 -*-")
-                call setline(3, "\"\"\"")
-                call setline(4, "\# Author: yourname")
-                call setline(5, "\# Created Time : ".strftime("%c"))
-                call setline(6, "\# File Name: ".expand("%"))
-                call setline(7, "\# Description:")
-                call setline(8, "\"\"\"")
-                call setline(9,"")
-        endif
-        "如果文件类型为.java文件
-        if &filetype == 'java'  
-                call setline(1, "//coding=utf8")  
-                call setline(2, "/**")  
-                call setline(3, "\ *\ @Author: yourname")  
-                call setline(4, "\ *\ @Created Time : ".strftime("%c"))  
-                call setline(5, "\ *\ @File Name: ".expand("%"))  
-                call setline(6, "\ *\ @Description:")  
-                call setline(7, "\ */")  
-                call setline(8,"")  
-        endif
+    "如果文件类型为.c或者.cpp文件
+    if (&filetype == 'c' || &filetype == 'cpp')
+        call setline(1, "/*")
+        call setline(2, "\ * File name: ".expand("%"))
+        call setline(3, " */")
+        call setline(4,"")
+    endif
+    "如果文件类型为.sh文件
+    if &filetype == 'sh'
+        call setline(1, "\#!/bin/bash")
+        call setline(2,"")
+    endif
+    "如果文件类型为.py文件
+    if &filetype == 'python'
+        call setline(1, "\#!/usr/bin/env python")
+        call setline(2, "\# -*- coding=utf8 -*-")
+        call setline(3,"")
+    endif
 endfunc
 " 自动将光标移动到文件末尾
 autocmd BufNewfile * normal G
 
+autocmd BufNewFile *.h exec ":call SetHeaderTitle()"
+func SetHeaderTitle()
+    let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
+    execute "normal! i#ifndef " . gatename
+    execute "normal! o#define " . gatename
+    execute "normal! Go#endif /* " . gatename . " */"
+    normal! k
+    call append(line("."), "")
+    call append(line("."), "")
+    call append(line("."), "")
+    normal! jj
+endfunc
 
 " nerdcomment
 " Add spaces after comment delimiters by default
@@ -218,7 +210,7 @@ set clipboard+=unnamedplus
 " gtags
 set cscopeprg=gtags-cscope
 let $GTAGSLABEL = 'native-pygments'
-let $GTAGSCONF = '/Users/shlin/.config/nvim/.globalrc'
+let $GTAGSCONF = '/Users/lin/.config/nvim/.globalrc'
 
 " auto gtags generator
 " gutentags 搜索工程目录的标志，当前文件路径向上递归直到碰到这些文件/目录名
