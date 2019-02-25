@@ -20,6 +20,8 @@ Plug 'airblade/vim-gitgutter'
 
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" C++ support
+Plug 'zchee/deoplete-clang'
 " async grammar check
 Plug 'neomake/neomake'
 Plug 'tczengming/autoload_cscope.vim'
@@ -203,6 +205,15 @@ let g:Lf_NormalMap = {
 let g:deoplete#enable_at_startup = 1
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" # On GNU/Linux
+" [sudo] find / -name libclang.so
+" # On macOS
+" mdfind -name libclang.dylib
+if has("mac") || has("macunix")
+let g:deoplete#sources#clang#libclang_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
+else
+endif
 
 " enable +y to copy to system clipboard
 set clipboard+=unnamedplus
