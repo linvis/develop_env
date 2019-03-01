@@ -2,12 +2,13 @@
 
 function macOS_install()
 {
+    brew install zsh
 }
 
 function linux_install()
 {
-    sudo cp /etc/apt/source.list /etc/apt/backup_source.list
-    sudo mv ./debian_source.list /etc/apt/source.list
+    sudo cp /etc/apt/sources.list /etc/apt/backup_sources.list
+    sudo mv ./debian_sources.list /etc/apt/sources.list
     sudo apt update
 
     # install ssh-server
