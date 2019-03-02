@@ -10,7 +10,7 @@ fi
 
 cd .config_tmp
 # sudo apt install curl
-wget https://github.com/neovim/neovim/archive/nightly.tar.gz
+wget https://github.com/neovim/neovim/archive/v0.3.4.tar.gz
 ret=$?
 if [ $ret == 0 ]
 then
@@ -20,8 +20,8 @@ else
     exit
 fi
 
-tar -zxvf nightly.tar.gz
-cd neovim-nightly
+tar -xvf v0.3.4.tar.gz
+cd neovim-0.3.4
 
 # install prebuild-requirement
 sudo apt update
@@ -47,9 +47,9 @@ pip3 install --user --upgrade neovim
 make
 sudo make install
 
-cd ../
+cd ../../
 sudo rm -rf .config_tmp
 
 sudo apt -y install curl
 ./config_neovim.sh
-cp init.vim ~/.config/nvim
+cp init.vim ~/.config/nvim/
