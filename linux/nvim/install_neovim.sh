@@ -20,7 +20,7 @@ else
     exit
 fi
 
-tar -zxvf neovim-nightly.tar.gz
+tar -zxvf nightly.tar.gz
 cd neovim-nightly
 
 # install prebuild-requirement
