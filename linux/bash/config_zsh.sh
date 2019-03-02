@@ -26,7 +26,8 @@ function linux_install()
     cp ./.zshrc ~/.zshrc
 
     # terminal markdown view
-    sudo pip install mdv
+    sudo apt -y python3-pip
+    sudo pip3 install mdv
 }
 
 OS=$(uname)
