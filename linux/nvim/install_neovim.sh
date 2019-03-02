@@ -10,7 +10,7 @@ fi
 
 cd .config_tmp
 # sudo apt install curl
-wget https://github.com/neovim/neovim/archive/v0.3.1.tar.gz
+wget https://github.com/neovim/neovim/archive/nightly.tar.gz
 ret=$?
 if [ $ret == 0 ]
 then
@@ -20,17 +20,17 @@ else
     exit
 fi
 
-tar -zxvf v0.3.1.tar.gz
-cd neovim-0.3.1
+tar -zxvf neovim-nightly.tar.gz
+cd neovim-nightly
 
 # install prebuild-requirement
-sudo apt-get update
-sudo apt-get -y install gettext libtool autoconf automake cmake g++ pkg-config unzip libtool-bin ninja-build
+sudo apt update
+sudo apt -y install gettext libtool autoconf automake cmake g++ pkg-config unzip libtool-bin ninja-build
 
-sudo apt-get -y install python-pip 
+sudo apt -y install python-pip 
 sudo pip install --user --upgrade neovim
 
-sudo apt-get -y install python3-pip
+sudo apt -y install python3-pip
 pip3 install --user --upgrade neovim
 # check_python=`python -c 'import sys; print(sys.version_info[:])'`
 # if [ ${check_python:1:2} == "2," ]
@@ -47,5 +47,9 @@ pip3 install --user --upgrade neovim
 make
 sudo make install
 
+cd ../
+sudo rm -rf .config_tmp
+
+sudo apt -y install curl
 ./config_neovim.sh
 cp init.vim ~/.config/nvim
