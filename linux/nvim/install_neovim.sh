@@ -28,10 +28,12 @@ sudo apt update
 sudo apt -y install gettext libtool autoconf automake cmake g++ pkg-config unzip libtool-bin ninja-build
 
 sudo apt -y install python-pip 
-sudo pip install --user --upgrade neovim
+sudo apt -y install python-neovim
+# sudo pip install --user --upgrade neovim
 
 sudo apt -y install python3-pip
-sudo pip3 install --user --upgrade neovim
+sudo apt -y install python3-neovim
+# sudo pip3 install --user --upgrade neovim
 # check_python=`python -c 'import sys; print(sys.version_info[:])'`
 # if [ ${check_python:1:2} == "2," ]
 # then
