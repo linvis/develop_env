@@ -244,3 +244,6 @@ let g:gutentags_cache_dir = expand('~/.cache/tags')
 
 " disable deoplete preview
 set completeopt-=preview
+
+" git-blame
+nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
